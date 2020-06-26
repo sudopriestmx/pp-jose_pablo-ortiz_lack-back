@@ -1,0 +1,27 @@
+{
+  "name": "pp-jose_pablo-ortiz_lack-back",
+  "version": "1.0.0",
+  "description": "backend proyecto prueba MEAN stack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sudopriestmx/pp-jose_pablo-ortiz_lack-back.git"
+  },
+  "author": "Jose Pablo Ortiz Lack",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sudopriestmx/pp-jose_pablo-ortiz_lack-back/issues"
+  },
+  "homepage": "https://github.com/sudopriestmx/pp-jose_pablo-ortiz_lack-back#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cuid": "^2.1.8",
+    "express": "^4.17.1",
+    "moment": "^2.27.0",
+    "mongoose": "^5.9.20",
+    "validator": "^13.1.1"
+  }
+}
