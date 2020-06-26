@@ -6,10 +6,10 @@ const db = require('../db');
 
 const User = db.model('User', {
     _id: { type: String, default: cuid },
-    name: { type: String, required: True, index: true},
+    name: { type: String, required: true, index: true},
     email: emailSchema({required: true}),
     phone: phoneSchema({required: true}),
-    password: { type: String, required: True},
+    password: { type: String, required: true},
     age: { type: Number, required: true},
     gender: {type: String, enum: ['Masculino', 'Femenino', 'Otro'] },
     hobby: {type: String, required: true, index: true},
