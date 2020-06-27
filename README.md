@@ -165,7 +165,7 @@ Example result:
 ]
 ```
 # Licence
-[MIT]('LICENSE')
+[MIT](LICENSE)
 
 
 
