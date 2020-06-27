@@ -6,9 +6,11 @@ const User = require('../models/user');
 const auth = require('../auth');
 
 router.get ('/', auth.ensureUser, async (req, res, next) => {
-    const { name, hobby } = req.query;
+    const { offset, limit, name, hobby } = req.query;
     try {
         const users = await User.list({
+            offset: parseInt(offset),
+            limit: parseInt(limit),
             name,
             hobby
         });
