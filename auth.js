@@ -113,11 +113,11 @@ function adminStrategy () {
     try {
 
         const user = await User.get(username);
+        
         if (!user) return cb(null, false);
-        console.log(password);
-        console.log(user.password);
+
         const isUser = await bcrypt.compare(password, user.password);
-        console.log(isUser);
+
         if (isUser) return cb(null, { username: user.email });
     } catch (err) { }
 
