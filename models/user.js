@@ -13,7 +13,7 @@ const User = db.model('User', {
     age: { type: Number, required: true},
     gender: {type: String, enum: ['Masculino', 'Femenino', 'Otro'] },
     hobby: {type: String, required: true, index: true},
-    registrationDate: {type: Date, required: true, default: Date.now(), index: true}
+    registrationDate: {type: Date, required: true, default: moment().toISOString(), index: true}
 
 });
 
@@ -21,26 +21,15 @@ module.exports = {
     list,
     create,
     remove,
+    listByHobby,
     model: User
   }
 
 async function list (opts = {}) {
     const { name, hobby } = opts;
-    let query;
-    if (name) {
-        if (hobby) {
-            query = {
-                name: name,
-                hobby: hobby
-            };
-        } else {
-            query = {
-                name: name
-            };
-        }
-    } else {
-        query = {};
-    }
+    const query = {};
+    if (name) query.name = { "$regex": name, "$options": "i" };
+    if (hobby) query.hobby = { "$regex": hobby, "$options": "i" };
 
     const users = await User.find(query)
         .sort({registrationDate: 1});
@@ -57,6 +46,40 @@ async function create (fields) {
 async function remove (_id) {
 
     await User.deleteOne({ _id })
+}
+
+async function listByHobby () {
+
+    const startDate = new Date(moment().subtract(3, 'days').toISOString());
+    const endDate = new Date(moment().toISOString());
+
+    console.log(startDate, ' ', endDate);
+
+    const users = await User.aggregate([
+        {
+            $match: {
+                age: {$gte: 18},
+                gender: 'Masculino',
+                registrationDate: {
+                    $gte: startDate,
+                    $lte: endDate
+                }
+            }
+        },
+        { 
+            $group: {
+                "_id": "$hobby",
+                "users": { 
+                    $push: {
+                        name: '$name',
+                        phone: '$phone'
+                    }
+                } 
+            }
+        }
+    ]);
+
+    return users;
 }
 
 function emailSchema (opts = {}) {
