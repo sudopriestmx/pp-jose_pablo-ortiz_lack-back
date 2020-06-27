@@ -1,7 +1,11 @@
+//node modules
 const router = require('express').Router();
-const User = require('../models/user');
 
-router.get ('/', async (req, res, next) => {
+//proyect modules
+const User = require('../models/user');
+const auth = require('../auth');
+
+router.get ('/', auth.ensureUser, async (req, res, next) => {
     const { name, hobby } = req.query;
     try {
         const users = await User.list({
@@ -16,7 +20,7 @@ router.get ('/', async (req, res, next) => {
     }
 });
 
-router.get ('/hobby', async (req, res, next) => {
+router.get ('/hobby', auth.ensureUser, async (req, res, next) => {
     
     try {
         const users = await User.listByHobby();
@@ -28,7 +32,7 @@ router.get ('/hobby', async (req, res, next) => {
     }
 });
 
-router.post ('/', async (req, res, next) => {
+router.post ('/', auth.ensureAdmin, async (req, res, next) => {
 
     try {
         const user = await User.create(req.body);
@@ -40,7 +44,7 @@ router.post ('/', async (req, res, next) => {
     }
 });
 
-router.delete ('/:id', async (req, res, next) => {
+router.delete ('/:id', auth.ensureAdmin, async (req, res, next) => {
 
     try {
 

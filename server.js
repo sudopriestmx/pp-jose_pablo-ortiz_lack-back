@@ -1,10 +1,16 @@
 //node-modules
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
 
 //proyect modules
+const auth = require('./auth');
 const middleware = require('./middleware');
 const usersRouter = require('./routers/usersRouter');
+const authRouter = require('./routers/authRouter');
+
+if (process.env.NODE_ENV !== 'production') dotenv.config();
 
 const port = process.env.PORT || 3000;
 
@@ -13,8 +19,11 @@ const app = express();
 app.use(middleware.cors);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
+app.use('/login', authRouter);
 app.use('/users', usersRouter);
+
 app.use(middleware.handleValidationError);
 app.use(middleware.handleError);
 app.use(middleware.notFound);

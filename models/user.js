@@ -27,6 +27,7 @@ const User = db.model('User', userSchema);
 
 module.exports = {
     list,
+    get,
     create,
     remove,
     listByHobby,
@@ -44,6 +45,12 @@ async function list (opts = {}) {
     
     return users;
 }
+
+async function get (email) {
+
+    const user = await User.findOne({ email });
+    return user;
+  }
 
 async function create (fields) {
 
