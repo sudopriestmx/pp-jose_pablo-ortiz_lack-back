@@ -35,13 +35,15 @@ module.exports = {
 }
 
 async function list (opts = {}) {
-    const { name, hobby } = opts;
+    const { offset = 0, limit = 25, name, hobby } = opts;
     const query = {};
     if (name) query.name = { "$regex": name, "$options": "i" };
     if (hobby) query.hobby = { "$regex": hobby, "$options": "i" };
 
     const users = await User.find(query)
-        .sort({registrationDate: 1});
+        .sort({registrationDate: 1})
+        .skip(offset)
+        .limit(limit);
     
     return users;
 }
@@ -69,8 +71,6 @@ async function listByHobby () {
 
     const startDate = new Date(moment().subtract(3, 'days').toISOString());
     const endDate = new Date(moment().toISOString());
-
-    console.log(startDate, ' ', endDate);
 
     const users = await User.aggregate([
         {
