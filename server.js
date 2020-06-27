@@ -2,10 +2,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const dotenv = require('dotenv');
 
 //proyect modules
-const auth = require('./auth');
 const middleware = require('./middleware');
 const usersRouter = require('./routers/usersRouter');
 const authRouter = require('./routers/authRouter');
@@ -16,7 +16,7 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
-app.use(middleware.cors);
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
