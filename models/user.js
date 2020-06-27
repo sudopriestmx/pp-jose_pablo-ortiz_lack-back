@@ -1,10 +1,16 @@
+//node modules
 const cuid = require('cuid');
-const { isEmail, isMobilePhone, contains } = require('validator');
+const { isEmail, isMobilePhone } = require('validator');
 const moment = require('moment');
+const bcrypt = require('bcrypt');
+const { promisify } = require('util');
 
+//proyect modules
 const db = require('../db');
 
-const User = db.model('User', {
+const SALT_ROUNDS = 10
+
+const userSchema = new db.Schema({
     _id: { type: String, default: cuid },
     name: { type: String, required: true, index: true},
     email: emailSchema({required: true}),
@@ -13,9 +19,11 @@ const User = db.model('User', {
     age: { type: Number, required: true},
     gender: {type: String, enum: ['Masculino', 'Femenino', 'Otro'] },
     hobby: {type: String, required: true, index: true},
-    registrationDate: {type: Date, required: true, default: moment().toISOString(), index: true}
+    registrationDate: {type: Date, required: true, default: new Date(moment().toISOString()), index: true}
 
 });
+
+const User = db.model('User', userSchema);
 
 module.exports = {
     list,
@@ -23,7 +31,7 @@ module.exports = {
     remove,
     listByHobby,
     model: User
-  }
+}
 
 async function list (opts = {}) {
     const { name, hobby } = opts;
@@ -38,8 +46,10 @@ async function list (opts = {}) {
 }
 
 async function create (fields) {
-    const user = await new User(fields).save();
 
+    const user = await new User(fields);
+    await hashPassword(user);
+    await user.save();
     return user;
 }
 
@@ -105,4 +115,10 @@ function phoneSchema (opts = {}) {
         }
     }
 
+}
+
+async function hashPassword (user) {
+    if (!user.password) throw user.invalidate('password', 'password is required')
+  
+    user.password = await promisify(bcrypt.hash)(user.password, SALT_ROUNDS)
 }
