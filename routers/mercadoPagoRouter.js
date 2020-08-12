@@ -7,7 +7,7 @@ function MercadoPago() {
 
   const MercadoPago = require('mercadopago')
 
-  MercadoPago.configurations.setAccessToken('APP_USR-7625462056535872-081219-066bac691b9747e0802b797711822fcb-625046243')
+  MercadoPago.configurations.setAccessToken('TEST-7625462056535872-081219-c8d0619f977ab3527c9f43253bbe8b55-625046243')
 
   return MercadoPago
 }
