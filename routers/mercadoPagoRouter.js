@@ -8,7 +8,7 @@ router.post ('/', async (req, res, next) => {
     try {
         console.log('**********QUERY**********', req.query)
         console.log('********** PARAMS **********', req.params)
-        if(!req.query.topic && !req.query.id)
+        if((!req.query.topic && !req.query.id) || (!req.params.topic && !req.params.id))
           throw new Error("Notificacion incorrecta")
         res.status(200).send('');
         let url = ''
