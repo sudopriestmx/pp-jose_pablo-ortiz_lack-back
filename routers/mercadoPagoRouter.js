@@ -22,17 +22,8 @@ router.post ('/', async (req, res, next) => {
             url = `https://api.mercadopago.com/v1/mercant_orders/${req.query.id}?access_token=${MERCADO_PAGO_ACCESS_TOKEN}`
             break
         }
-        axios.get(url)
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          console.log('Error: ', error.data)
-          throw error.data
-        })
-        .then(() => {
-          console.log('Axios request finished')
-        })
+        const response = await axios.get(url)
+        console.log(response)
 
     } catch(err) {
         console.error(err)
