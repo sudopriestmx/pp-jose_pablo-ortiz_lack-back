@@ -9,6 +9,7 @@ const dotenv = require('dotenv');
 const middleware = require('./middleware');
 const usersRouter = require('./routers/usersRouter');
 const authRouter = require('./routers/authRouter');
+const mercadoPagoRouter = require('./routers/mercadoPagoRouter')
 
 if (process.env.NODE_ENV !== 'production') dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(cookieParser());
 
 app.use('/login', authRouter);
 app.use('/users', usersRouter);
+app.use('mercadopago', mercadoPagoRouter)
 
 app.use(middleware.handleValidationError);
 app.use(middleware.handleError);
