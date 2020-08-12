@@ -27,14 +27,15 @@ router.post ('/', async (req, res, next) => {
           console.log(response)
         })
         .catch(error => {
-          console.log('Error: ', error)
-          throw error
+          console.log('Error: ', error.data)
+          throw error.data
         })
         .then(() => {
           console.log('Axios request finished')
         })
 
     } catch(err) {
+        console.error(err)
         return next(err);
     }
 });
