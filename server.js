@@ -24,7 +24,7 @@ app.use(cookieParser());
 
 app.use('/login', authRouter);
 app.use('/users', usersRouter);
-app.use('mercadopago', mercadoPagoRouter)
+app.use('/mercadopago', mercadoPagoRouter)
 
 app.use(middleware.handleValidationError);
 app.use(middleware.handleError);
