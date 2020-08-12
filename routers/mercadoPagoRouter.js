@@ -6,7 +6,8 @@ const MERCADO_PAGO_ACCESS_TOKEN = process.env.MERCADO_PAGO_ACCESS_TOKEN
 router.post ('/', async (req, res, next) => {
 
     try {
-        
+        console.log('**********QUERY**********', req.query)
+        console.log('********** PARAMS **********', req.params)
         if(!req.query.topic && !req.query.id)
           throw new Error("Notificacion incorrecta")
         res.status(200).send('');
