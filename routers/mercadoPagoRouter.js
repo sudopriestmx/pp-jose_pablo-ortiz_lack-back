@@ -8,7 +8,7 @@ router.post ('/', async (req, res, next) => {
     try {
 
       res.status(200).send('');
-
+      console.log('MERCADOPAGO')
       let url = ''
       switch(req.query.topic) {
         case 'payment':
