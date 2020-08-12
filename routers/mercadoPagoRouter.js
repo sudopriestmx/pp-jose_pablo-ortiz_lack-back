@@ -1,5 +1,6 @@
 //node modules
 const router = require('express').Router();
+const axios = require('axios').default
 const MERCADO_PAGO_ACCESS_TOKEN = process.env.MERCADO_PAGO_ACCESS_TOKEN
 
 router.post ('/', async (req, res, next) => {
@@ -21,16 +22,16 @@ router.post ('/', async (req, res, next) => {
             url = `https://api.mercadopago.com/v1/mercant_orders/${req.query.id}?access_token=${MERCADO_PAGO_ACCESS_TOKEN}`
             break
         }
-        fetch(url)
+        axios.get(url)
         .then(response => {
-          response.json()
-        })
-        .then(data => {
-          console.log('Success: ', data)
+          console.log(response)
         })
         .catch(error => {
           console.log('Error: ', error)
           throw error
+        })
+        .then(() => {
+          console.log('Axios request finished')
         })
 
     } catch(err) {
