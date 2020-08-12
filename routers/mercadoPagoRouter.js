@@ -17,18 +17,8 @@ router.post ('/', async (req, res, next) => {
     try {
 
       res.status(200).send('');
-      console.log('MERCADOPAGO')
-      let url = ''
-      switch(req.query.topic) {
-        case 'payment':
-          const payment = await MercadoPago().payment.get(req.query.id)
-          console.log(payment)
-          break
-        case 'merchant_order':
-          const merchantOrder = await MercadoPago().merchant_orders.get(req.query.id)
-          console.log(merchantOrder)
-          break
-      }
+      const ipn = await MercadoPago().ipn.manage(req)
+      console.log(ipn)
 
     } catch(err) {
         console.error(err)
