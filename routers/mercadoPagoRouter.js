@@ -22,7 +22,7 @@ router.post ('/', async (req, res, next) => {
       console.log(req.body)
       const payment = await MercadoPago().payment.get(req.body.data.id)
       console.log(payment)
-
+      console.log(payment.body.fee_details)
     } catch(err) {
         console.error(err)
     }
