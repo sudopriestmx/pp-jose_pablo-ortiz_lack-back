@@ -3,6 +3,15 @@ const router = require('express').Router();
 const axios = require('axios').default
 const MERCADO_PAGO_ACCESS_TOKEN = process.env.MERCADO_PAGO_ACCESS_TOKEN
 
+function MercadoPago() {
+
+  const MercadoPago = require('mercadopago')
+
+  MercadoPago.configurations.setAccessToken('APP_USR-7625462056535872-081219-066bac691b9747e0802b797711822fcb-625046243')
+
+  return MercadoPago
+}
+
 router.post ('/', async (req, res, next) => {
 
     try {
@@ -12,21 +21,17 @@ router.post ('/', async (req, res, next) => {
       let url = ''
       switch(req.query.topic) {
         case 'payment':
-          url = `https://api.mercadopago.com/v1/payments/${req.query.id}?access_token=${MERCADO_PAGO_ACCESS_TOKEN}`
-          break
-        case 'chargebacks':
-          url = `https://api.mercadopago.com/v1/chargebacks/${req.query.id}?access_token=${MERCADO_PAGO_ACCESS_TOKEN}`
+          const payment = await MercadoPago().payment.get(req.query.id)
+          console.log(payment)
           break
         case 'merchant_order':
-          url = `https://api.mercadopago.com/v1/merchant_orders/${req.query.id}?access_token=${MERCADO_PAGO_ACCESS_TOKEN}`
+          const merchantOrder = await MercadoPago().merchant_orders.get(req.query.id)
+          console.log(merchantOrder)
           break
       }
-      const response = await axios.get(url)
-      console.log(response)
 
     } catch(err) {
         console.error(err)
-        return next(err);
     }
 });
 
