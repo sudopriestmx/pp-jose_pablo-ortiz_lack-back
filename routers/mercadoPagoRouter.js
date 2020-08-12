@@ -20,8 +20,8 @@ router.post ('/', async (req, res, next) => {
       res.status(200).send('');
       console.log(req.query)
       console.log(req.body)
-      const payment = await MercadoPago().payment.get(req.data.id)
-      console.log(ipn)
+      const payment = await MercadoPago().payment.get(req.body.data.id)
+      console.log(payment)
 
     } catch(err) {
         console.error(err)
