@@ -24,11 +24,12 @@ router.post ('/', async (req, res, next) => {
       console.log(payment)
       console.log('*************************************************')
       console.log('Description: ', payment.body.description)
-      console.log('user_id: ', payment.body.external_referece)
+      console.log('user_id: ', payment.body.external_reference)
       console.log('amount: ', payment.body.transaction_amount)
       let mercadopago_fee = 0;
       let pack_and_pack_amount = 0
-      for(let feeDetail in payment.body.fee_details) {
+      for(let feeDetail of payment.body.fee_details) {
+        console.log(feeDetail)
         switch(feeDetail.type) {
           case 'mercadopago_fee':
             mercadopago_fee = feeDetail.amount
