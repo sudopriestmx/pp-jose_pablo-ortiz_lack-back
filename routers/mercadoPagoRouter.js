@@ -21,7 +21,9 @@ router.post ('/', async (req, res, next) => {
       console.log(req.query)
       console.log(req.body)
       const payment = await MercadoPago().payment.get(req.body.data.id)
-      console.log('Description: ', payment.description)
+      console.log(payment)
+      console.log('*************************************************')
+      console.log('Description: ', payment.body.description)
       console.log('user_id: ', payment.body.external_referece)
       console.log('amount: ', payment.body.transaction_amount)
       let mercadopago_fee = 0;
