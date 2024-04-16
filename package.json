@@ -24,11 +24,11 @@
     "cors": "^2.8.5",
     "cuid": "^2.1.8",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.19.2",
     "jsonwebtoken": "^9.0.0",
     "mercadopago": "^2.0.8",
     "moment": "^2.29.4",
-    "mongoose": "^5.9.20",
+    "mongoose": "^5.13.20",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "validator": "^13.7.0"
