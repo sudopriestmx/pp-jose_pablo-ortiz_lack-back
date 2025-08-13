@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/sudopriestmx/pp-jose_pablo-ortiz_lack-back#readme",
   "dependencies": {
-    "axios": "^0.28.0",
+    "axios": "^0.30.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.5",
